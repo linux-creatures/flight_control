@@ -1,7 +1,0 @@
-GPS module     I2C port
-bluetooth module  recieving data
-special transmitting device for controlling the device ...
-2 ultrasonic devices for connecting to the board...
-
-
-
