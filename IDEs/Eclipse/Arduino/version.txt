@@ -1,1 +1,0 @@
-Sources taken from Arduino IDE 1.0.5
