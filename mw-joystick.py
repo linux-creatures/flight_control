@@ -38,7 +38,7 @@ def sendCommands():
                 rcCMD[1] = udp.message[1] # Pitch
                 rcCMD[2] = udp.message[2] # Yaw
                 rcCMD[3] = udp.message[3] # Throttle
-                vehicle.sendCMD(16,MultiWii.SET_RAW_RC,rcCMD)
+                vehicle.sendCMD(8,MultiWii.SET_RAW_RC,rcCMD)
                 print udp.message # Just to display some data, not really needed.
                 # 100hz loop
                 while elapsed < 0.01:
