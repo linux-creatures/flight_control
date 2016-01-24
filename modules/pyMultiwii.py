@@ -56,7 +56,7 @@ class MultiWii:
 
 
     """Class initialization"""
-    def __init__(self, serPort):
+i    def __init__(self, serPort):
 
         """Global variables of data"""
         self.rcChannels = {'roll':0,'pitch':0,'yaw':0,'throttle':0,'elapsed':0,'timestamp':0}
@@ -80,7 +80,7 @@ class MultiWii:
         self.ser.dsrdtr = False
         self.ser.writeTimeout = 2
         """Time to wait until the board became operational"""
-        wakeup = 2
+        wakeup = 10
         try:
             self.ser.open()
             if self.PRINT:
@@ -115,7 +115,7 @@ class MultiWii:
 
     case MSP_SET_RAW_RC:
       s_struct_w((uint8_t*)&rcSerial,16);
-      rcSerialCount = 50; // 1s transition 
+      rcSerialCount = 50; // 1s transition
       s_struct((uint8_t*)&att,6);
       break;
 
@@ -146,7 +146,7 @@ class MultiWii:
             self.attitude['angy']=float(temp[1]/10.0)
             self.attitude['heading']=float(temp[2])
             self.attitude['elapsed']=round(elapsed,3)
-            self.attitude['timestamp']="%0.2f" % (time.time(),) 
+            self.attitude['timestamp']="%0.2f" % (time.time(),)
             return self.attitude
         except Exception, error:
             #print "\n\nError in sendCMDreceiveATT."
@@ -159,7 +159,7 @@ class MultiWii:
 
     case MSP_SET_RAW_RC:
       s_struct_w((uint8_t*)&rcSerial,16);
-      rcSerialCount = 50; // 1s transition 
+      rcSerialCount = 50; // 1s transition
       s_struct((uint8_t*)&att,6);
       break;
 
@@ -206,7 +206,7 @@ class MultiWii:
                 self.attitude['angy']=float(temp[1]/10.0)
                 self.attitude['heading']=float(temp[2])
                 self.attitude['elapsed']=round(elapsed,3)
-                self.attitude['timestamp']="%0.2f" % (time.time(),) 
+                self.attitude['timestamp']="%0.2f" % (time.time(),)
                 return self.attitude
             elif cmd == MultiWii.RC:
                 self.rcChannels['roll']=temp[0]
@@ -322,7 +322,7 @@ class MultiWii:
                 self.message['yaw']=temp2[2]
                 self.message['throttle']=temp2[3]
                 self.message['elapsed']=round(elapsed,3)
-                self.message['timestamp']="%0.2f" % (time.time(),) 
+                self.message['timestamp']="%0.2f" % (time.time(),)
                 return self.message
             else:
                 return "No return error!"
