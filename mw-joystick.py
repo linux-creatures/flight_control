@@ -21,7 +21,6 @@ import modules.UDPserver as udp
 rcCMD = [1500,1500,1500,1000,1000,1000,1000,1000]
 
 # MRUAV initialization
-#vehicle = MultiWii("/dev/tty.usbserial-A801WZA1")
 vehicle = MultiWii("/dev/ttyUSB0")
 
 # Function to update commands and attitude to be called by a thread
