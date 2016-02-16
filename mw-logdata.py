@@ -20,7 +20,7 @@ import modules.utils as utils
 #vehicle = MultiWii("/dev/tty.usbserial-A801WZA1")
 vehicle = MultiWii("/dev/ttyUSB0")
 
-# RC commnads to be sent to the MultiWii 
+# RC commnads to be sent to the MultiWii
 rcCMD = [1500,1500,1500,1000,1000,1000,1000,1000]
 
 # Function to update commands and attitude to be called by a thread
@@ -55,8 +55,8 @@ def logit():
             #vehicle.getData(MultiWii.RC)
             vehicle.getData(MultiWii.RAW_IMU)
             #print "Time to ask two commands -> %0.3f" % (time.time()-elapsed)
-            #print "%s %s" % (vehicle.attitude,rcCMD) 
-            print "%s %s" % (vehicle.rawIMU,udp.message) 
+            #print "%s %s" % (vehicle.attitude,rcCMD)
+            print "%s %s" % (vehicle.rawIMU,udp.message)
 
             # Save log
             row =   (time.time(), \

@@ -12,7 +12,7 @@ __email__ = "alduxvm@gmail.com"
 __status__ = "Development"
 
 
-import serial, time, struct, math
+import serial, time, struct
 
 
 class MultiWii:
