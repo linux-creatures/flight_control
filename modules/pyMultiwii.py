@@ -108,27 +108,9 @@ class MultiWii:
             #print "\n\nError in sendCMD."
             #print "("+str(error)+")\n\n"
             pass
-    """Function to get the motor data from the multiwii board"""
-    def getmotordata(self, cmd):
-        try:
-            start = time.time()
-            self.sendCMD(0,cmd,[])
-            while True:
-                header = self.ser.read()
-                if header == '$':
-                    header = header+self.ser.read(2)
-                    break
-            datalength = struct.unpack('<b', self.ser.read())[0]
-            code = struct.unpack('<b', self.ser.read())
-            data = self.ser.read(datalength)
-            temp = struct.unpack('<'+'h'*(datalength/2),data)
-            self.ser.flushInput()
-            self.ser.flushOutput()
-            elapsed = time.time() - start
-            if cmd == MultiWii.ATTITUDE:
-                self.attitude['angx']=float(temp[0]/10.0)
-                self.attitude['angy']=float(temp[1]/10.0)
-                self.attitude['heading']=float(temp[2])
+
+
+
     """Function for sending a command to the board and receive attitude"""
     """
     Modification required on Multiwii firmware to Protocol.cpp in evaluateCommand:
