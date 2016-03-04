@@ -11,7 +11,7 @@ __maintainer__ = "Aldo Vargas"
 __email__ = "alduxvm@gmail.com"
 __status__ = "Development"
 
-from pyMultiwii import MultiWii
+from modules.pyMultiwii import MultiWii
 import time
 
 if __name__ == "__main__":
