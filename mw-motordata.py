@@ -20,7 +20,7 @@ if __name__ == "__main__":
             #print board.attitude #uncomment for regular printing
 
             # Fancy printing (might not work on windows...)
-            message = "angx = {:+f} \t angy = {:+f} \t heading = {:+f} \t elapsed = {:+f} \t".format(float(board.motor['m1']),float(board.motor['m2']),float(board.motor['m3']),float(board.motor['m4'])
+            message = "angx = {:+f} \t angy = {:+f} \t heading = {:+f} \t elapsed = {:+f} \t".format(float(board.motor['m1']),float(board.motor['m2']),float(board.motor['m3']),float(board.motor['m4']))
             stdout.write("\r%s" % message )
             stdout.flush()
             # End of fancy printing
