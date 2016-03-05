@@ -235,6 +235,7 @@ class MultiWii:
                 self.motor['m4']=float(temp[3])
                 self.motor['elapsed']="%0.3f" % (elapsed,)
                 self.motor['timestamp']="%0.2f" % (time.time(),)
+                return self.motor
             else:
                 return "No return error!"
         except Exception, error:
