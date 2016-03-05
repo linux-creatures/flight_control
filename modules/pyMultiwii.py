@@ -228,62 +228,20 @@ class MultiWii:
                 self.rawIMU['elapsed']=round(elapsed,3)
                 self.rawIMU['timestamp']="%0.2f" % (time.time(),)
                 return self.rawIMU
+            elif cmd == MultiWii.MOTOR:
+                self.motor['m1']=float(temp[0])
+                self.motor['m2']=float(temp[1])
+                self.motor['m3']=float(temp[2])
+                self.motor['m4']=float(temp[3])
+                self.motor['elapsed']="%0.3f" % (elapsed,)
+                self.motor['timestamp']="%0.2f" % (time.time(),)
             else:
                 return "No return error!"
         except Exception, error:
             #print error
             pass
 
-    """Function to receive a data packet from the board. Note: easier to use on threads"""
-    def getDataInf(self, cmd):
-        while True:
-            try:
-                start = time.clock()
-                self.sendCMD(0,cmd,[])
-                while True:
-                    header = self.ser.read()
-                    if header == '$':
-                        header = header+self.ser.read(2)
-                        break
-                datalength = struct.unpack('<b', self.ser.read())[0]
-                code = struct.unpack('<b', self.ser.read())
-                data = self.ser.read(datalength)
-                temp = struct.unpack('<'+'h'*(datalength/2),data)
-                elapsed = time.clock() - start
-                self.ser.flushInput()
-                self.ser.flushOutput()
-                if cmd == MultiWii.ATTITUDE:
-                    self.attitude['angx']=float(temp[0]/10.0)
-                    self.attitude['angy']=float(temp[1]/10.0)
-                    self.attitude['heading']=float(temp[2])
-                    self.attitude['elapsed']="%0.3f" % (elapsed,)
-                    self.attitude['timestamp']="%0.2f" % (time.time(),)
-                elif cmd == MultiWii.RC:
-                    self.rcChannels['roll']=temp[0]
-                    self.rcChannels['pitch']=temp[1]
-                    self.rcChannels['yaw']=temp[2]
-                    self.rcChannels['throttle']=temp[3]
-                    self.rcChannels['elapsed']="%0.3f" % (elapsed,)
-                    self.rcChannels['timestamp']="%0.2f" % (time.time(),)
-                elif cmd == MultiWii.RAW_IMU:
-                    self.rawIMU['ax']=float(temp[0])
-                    self.rawIMU['ay']=float(temp[1])
-                    self.rawIMU['az']=float(temp[2])
-                    self.rawIMU['gx']=float(temp[3])
-                    self.rawIMU['gy']=float(temp[4])
-                    self.rawIMU['gz']=float(temp[5])
-                    self.rawIMU['elapsed']="%0.3f" % (elapsed,)
-                    self.rawIMU['timestamp']="%0.2f" % (time.time(),)
-                elif cmd == MultiWii.MOTOR:
-                    self.motor['m1']=float(temp[0])
-                    self.motor['m2']=float(temp[1])
-                    self.motor['m3']=float(temp[2])
-                    self.motor['m4']=float(temp[3])
-                    self.motor['elapsed']="%0.3f" % (elapsed,)
-                    self.motor['timestamp']="%0.2f" % (time.time(),)
-            except Exception, error:
-                pass
-
+   
     """Function to ask for 2 fixed cmds, attitude and rc channels, and receive them. Note: is a bit slower than others"""
     def getData2cmd(self, cmd):
         try:

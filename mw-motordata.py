@@ -16,7 +16,7 @@ if __name__ == "__main__":
     #board = MultiWii("/dev/tty.SLAB_USBtoUART")
     try:
         while True:
-            board.getDataInf(MultiWii.MOTOR)
+            board.getData(MultiWii.MOTOR)
             #print board.attitude #uncomment for regular printing
 
             # Fancy printing (might not work on windows...)
