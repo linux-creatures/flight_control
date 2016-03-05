@@ -17,7 +17,6 @@ if __name__ == "__main__":
     try:
         while True:
             board.getData(MultiWii.MOTOR)
-            #print board.attitude #uncomment for regular printing
 
             # Fancy printing (might not work on windows...)
             message = "angx = {:+f} \t angy = {:+f} \t heading = {:+f} \t elapsed = {:+f} \t".format(float(board.motor['m1']),float(board.motor['m2']),float(board.motor['m3']),float(board.motor['m4']))

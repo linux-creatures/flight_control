@@ -210,6 +210,16 @@ class MultiWii:
                 self.attitude['elapsed']=round(elapsed,3)
                 self.attitude['timestamp']="%0.2f" % (time.time(),)
                 return self.attitude
+
+            elif cmd == MultiWii.MOTOR:
+                self.motor['m1']=float(temp[0])
+                self.motor['m2']=float(temp[1])
+                self.motor['m3']=float(temp[2])
+                self.motor['m4']=float(temp[3])
+                self.motor['elapsed']="%0.3f" % (elapsed,3)
+                self.motor['timestamp']="%0.2f" % (time.time(),)
+                return self.motor
+
             elif cmd == MultiWii.RC:
                 self.rcChannels['roll']=temp[0]
                 self.rcChannels['pitch']=temp[1]
@@ -218,6 +228,7 @@ class MultiWii:
                 self.rcChannels['elapsed']=round(elapsed,3)
                 self.rcChannels['timestamp']="%0.2f" % (time.time(),)
                 return self.rcChannels
+                
             elif cmd == MultiWii.RAW_IMU:
                 self.rawIMU['ax']=float(temp[0])
                 self.rawIMU['ay']=float(temp[1])
@@ -228,14 +239,7 @@ class MultiWii:
                 self.rawIMU['elapsed']=round(elapsed,3)
                 self.rawIMU['timestamp']="%0.2f" % (time.time(),)
                 return self.rawIMU
-            elif cmd == MultiWii.MOTOR:
-                self.motor['m1']=float(temp[0])
-                self.motor['m2']=float(temp[1])
-                self.motor['m3']=float(temp[2])
-                self.motor['m4']=float(temp[3])
-                self.motor['elapsed']="%0.3f" % (elapsed,3)
-                self.motor['timestamp']="%0.2f" % (time.time(),)
-                return self.motor
+
             else:
                 return "No return error!"
         except Exception, error:
