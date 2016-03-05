@@ -233,7 +233,7 @@ class MultiWii:
                 self.motor['m2']=float(temp[1])
                 self.motor['m3']=float(temp[2])
                 self.motor['m4']=float(temp[3])
-                self.motor['elapsed']="%0.3f" % (elapsed,)
+                self.motor['elapsed']="%0.3f" % (elapsed,3)
                 self.motor['timestamp']="%0.2f" % (time.time(),)
                 return self.motor
             else:
