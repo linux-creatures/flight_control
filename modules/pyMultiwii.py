@@ -293,3 +293,100 @@ class MultiWii:
                 return "No return error!"
         except Exception, error:
             print error
+
+
+    def takeoff(self):
+        """Make the drone takeoff."""
+        self.at(at_ftrim)
+        self.at(at_config, "control:altitude_max", "20000")
+        self.at(at_ref, True)
+
+    def land(self):
+        """Make the drone land."""
+        self.at(at_ref, False)
+
+    def hover(self):
+        """Make the drone hover."""
+        self.at(at_pcmd, False, 0, 0, 0, 0)
+
+    def move_left(self):
+        """Make the drone move left."""
+        self.at(at_pcmd, True, -self.speed, 0, 0, 0)
+
+    def move_right(self):
+        """Make the drone move right."""
+        self.at(at_pcmd, True, self.speed, 0, 0, 0)
+
+    def move_up(self):
+        """Make the drone rise upwards."""
+        self.at(at_pcmd, True, 0, 0, self.speed, 0)
+
+    def move_down(self):
+        """Make the drone decent downwards."""
+        self.at(at_pcmd, True, 0, 0, -self.speed, 0)
+
+    def move_forward(self):
+        """Make the drone move forward."""
+        self.at(at_pcmd, True, 0, -self.speed, 0, 0)
+
+    def move_backward(self):
+        """Make the drone move backwards."""
+        self.at(at_pcmd, True, 0, self.speed, 0, 0)
+
+    def turn_left(self):
+        """Make the drone rotate left."""
+        self.at(at_pcmd, True, 0, 0, 0, -self.speed)
+
+    def turn_right(self):
+        """Make the drone rotate right."""
+        self.at(at_pcmd, True, 0, 0, 0, self.speed)
+
+    def reset(self):
+        """Toggle the drone's emergency state."""
+        self.at(at_ref, False, True)
+        self.at(at_ref, False, False)
+
+    def trim(self):
+        """Flat trim the drone."""
+        self.at(at_ftrim)
+
+    def set_speed(self, speed):
+        """Set the drone's speed.
+
+        Valid values are floats from [0..1]
+        """
+        self.speed = speed
+
+
+    def halt(self):
+        """Shutdown the drone.
+
+        This method does not land or halt the actual drone, but the
+        communication with the drone. You should call it at the end of your
+        application to close all sockets, pipes, processes and threads related
+        with this object.
+        """
+        self.lock.acquire()
+        self.com_watchdog_timer.cancel()
+        self.com_pipe.send('die!')
+        self.network_process.terminate()
+        self.network_process.join()
+        self.ipc_thread.stop()
+        self.ipc_thread.join()
+        self.lock.release()
+        
+    def move(self,lr, fb, vv, va):
+        """Makes the drone move (translate/rotate).
+
+       Parameters:
+       lr -- left-right tilt: float [-1..1] negative: left, positive: right
+       rb -- front-back tilt: float [-1..1] negative: forwards, positive:
+            backwards
+       vv -- vertical speed: float [-1..1] negative: go down, positive: rise
+       va -- angular speed: float [-1..1] negative: spin left, positive: spin 
+            right"""
+        self.at(at_pcmd, True, lr, fb, vv, va)
+
+
+
+
